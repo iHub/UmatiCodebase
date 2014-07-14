@@ -1,0 +1,1 @@
+This is a test readme by Sidney Ochieng as he was learning how to use Github
