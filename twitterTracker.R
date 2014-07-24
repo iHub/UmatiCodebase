@@ -108,8 +108,13 @@ lim=length(experimental$word)
 a=list()
 repeat{
   k=k+1
-  if(experimental[1,2]==rownames(experimental2)[k]){
-    a=append(x=a,values="This is a test")
+  b=1
+  while(b<=2)
+  {
+    if(experimental[b,2]==rownames(experimental2)[k]){
+      a=append(x=a,values=k)
+    }
+    b=b+1
   }
   if(k>=lim) break()
 }
