@@ -98,3 +98,18 @@ while(TRUE)
 #everything after this line is experimentation
 #something=lookupUsers("princelySid,blackorwa")
 #f=findFreqTerms(e,lowfreq=2)
+accounts=tweets$screen_name
+experimental=wordCount
+experimental2=tweetsDF
+dim(tweetsDF)
+rownames(tweetsDF)[1]==rownames(as.data.frame(rowSums(tweetsDF)))[1]
+k=1
+lim=length(experimental$word)
+a=list()
+repeat{
+  k=k+1
+  if(experimental[1,2]==rownames(experimental2)[k]){
+    a=append(x=a,values="This is a test")
+  }
+  if(k>=lim) break()
+}
