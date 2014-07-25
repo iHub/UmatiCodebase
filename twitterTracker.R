@@ -79,7 +79,7 @@ while(TRUE)
   keyWords=head(wordCount$word,2)
   keyCounts=head(wordCount$count,2)
   
-  #Loop take the highest occuring words and tweets them
+  #Loop takes the highest occuring words and tweets them
   i=1
   j=as.integer(head(wordCount$count,1))
   if(j>5)
@@ -118,3 +118,18 @@ repeat{
   }
   if(k>=lim) break()
 }
+
+aLength=length(accounts)
+aCount=list()
+d=1
+repeat{
+  if(experimental2[52,d]==1)
+  {
+    aCount=append(x=aCount,values=accounts[d])
+  }
+  d=d+1
+  if(d>=aLength) break()
+}
+freq=table(unlist(aCount))
+c=unlist(a)
+names(freq)
