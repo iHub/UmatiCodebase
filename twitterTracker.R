@@ -1,4 +1,4 @@
-#Load Required Libraries
+tey#Load Required Libraries
 library(streamR)
 library(twitteR)
 library(stringr)
@@ -6,7 +6,7 @@ library(tm)
 
 
 #Load Authentication File
-load("auth.Rdata")
+load("twitteR_credentials")
 
 #Register Authentication 
 registerTwitterOAuth(twitCred)
@@ -41,7 +41,16 @@ while(TRUE)
   tweetsText=tweets$text
   
   #removes the usernames and links from the text of tweets
-  tweetsText=gsub("(@)\\w+|(http).*","",tweetsText)  
+  tweetsText=gsub("(@)\\w+|(http).*","",tweetsText) 
+  
+  #Converts all uppercase letters in the textfield of the dataframe into lowercase
+  tweetsText=tolower(tweetsText)
+  
+  #removes all punctuation from the corpus
+  tweetsText=gsub("[[:punct:]]","",tweetsText)
+  
+  #removes the manual retweets(the letters rt)
+  tweetsText=gsub("(rt)\\s","",tweetsText)
   
   #Creates a corpus that is used for analysis
   try(expr=(tweetsCorpus = Corpus(VectorSource(iconv(tweetsText,to="utf-8")))))
@@ -49,14 +58,8 @@ while(TRUE)
   #Uses the text mining package to remove stopwords from the corpus
   tweetsCorpus= tm_map(tweetsCorpus,removeWords,stopwords("SMART"))
   
-  #Converts all uppercase letters in the textfield of the dataframe into lowercase
-  tweetsCorpus=tolower(tweetsCorpus)
-  
-  #removes all punctuation from the corpus
-  tweetsCorpus=gsub("[[:punct:]]","",tweetsCorpus)
-  
   #converts the words back into a list/corpus data type
-  tweetsCorpus = Corpus(VectorSource(tweetsCorpus))
+  #tweetsCorpus = Corpus(VectorSource(tweetsCorpus))
   
   #convert the corpus into a Term document matrix
   tweetsTDM=TermDocumentMatrix(tweetsCorpus)
@@ -79,15 +82,57 @@ while(TRUE)
   keyWords=head(wordCount$word,2)
   keyCounts=head(wordCount$count,2)
   
+  #The loop is used to find out where the 2 highiest occuring words happened
+  k=1 #loop counter
+  lim=length(wordCount$word)
+  occurance=list() 
+  repeat{
+    b=1
+    while(b<=2){
+      if(wordCount[b,2]==rownames(tweetsDF)[k]){
+        occurance=append(x=occurance,values=k)
+      }
+      b=b+1
+    }
+    k=k+1
+    if(k>=lim) break()
+  }
+  occurance=unlist(occurance)
+  
   #Loop takes the highest occuring words and tweets them
   i=1
-  j=as.integer(head(wordCount$count,1))
-  if(j>5)
+  j=as.integer(head(wordCount$count,1)) #number of times the highest word occured
+  if(j>=5)
   {
+    aLength=length(accounts)
+    aCount=list() #stores the accounts
+    d=1 #counter that loops through the DF array
+    
     while(i<=2)
     {
-      keyText=paste("The word",keyWords[i],"occured",keyCounts[i],"times",sep=" ")
-      try(expr=(tweet(text=keyText)))
+      repeat{
+        if(tweetsDF[occurance[i],d]>=1)
+        {
+          aCount=append(x=aCount,values=accounts[d])
+        }
+        d=d+1
+        if(d>=aLength) break()
+      }
+      freq=table(unlist(aCount)) #counts the occurance of the accounts
+      Data=as.data.frame(freq) #conversion to dataframe
+      
+      loop=length(aCount)
+      tAcc=1
+      while(tAcc<=loop)
+      {
+        trendAccounts=paste(as.String(Data[tAcc,1]),"(",Data[tAcc,2],")",sep="")
+        trendAccounts=append(x=trendAccounts,values=trendAccounts)
+        tAcc=tAcc+1
+      }
+      trendAccounts=as.String(trendAccounts)
+      
+      keyText=paste("The word",keyWords[i],"occured",keyCounts[i],"times",trendAccounts,sep=" ")
+      #try(expr=(tweet(text=keyText)))
       #Logs the new key words
       KWReport =paste(keyText, 'at', Sys.time())
       write(x=KWReport,file="KWLog.txt",append=TRUE)
@@ -98,38 +143,52 @@ while(TRUE)
 #everything after this line is experimentation
 #something=lookupUsers("princelySid,blackorwa")
 #f=findFreqTerms(e,lowfreq=2)
+
 accounts=tweets$screen_name
-experimental=wordCount
-experimental2=tweetsDF
+expWC=wordCount
+expDF=tweetsDF
 dim(tweetsDF)
-rownames(tweetsDF)[1]==rownames(as.data.frame(rowSums(tweetsDF)))[1]
+rownames(tweetsDF)[1]==rownames(wordCount)[1]
+#The loop is used to find out where the 2 highiest occuring words happened
 k=1
-lim=length(experimental$word)
+lim=length(expWC$word)
 a=list()
 repeat{
-  k=k+1
   b=1
   while(b<=2)
   {
-    if(experimental[b,2]==rownames(experimental2)[k]){
+    if(expWC[b,2]==rownames(expDF)[k]){
       a=append(x=a,values=k)
     }
     b=b+1
   }
+  k=k+1
   if(k>=lim) break()
 }
+tret=unlist(a)
 
+#Find the accounts that tweeted the high words
 aLength=length(accounts)
 aCount=list()
 d=1
+test=1
 repeat{
-  if(experimental2[52,d]==1)
-  {
-    aCount=append(x=aCount,values=accounts[d])
+  repeat{
+    if(expDF[tret[test],d]>=1)
+    {
+      aCount=append(x=aCount,values=accounts[d])
+    }
+    d=d+1
+    if(d>=aLength) break()
   }
-  d=d+1
-  if(d>=aLength) break()
+  TT=paste(as.String(Data[test,1]),"(",Data[test,2],")",sep="")
+  #tweet(TT)
+  test=test+1
+  if(test>=2) break()
 }
+
 freq=table(unlist(aCount))
+Data=as.data.frame(freq)
+TT=paste(as.String(Data[1,1]),"(",Data[1,2],")",sep="")
 c=unlist(a)
 names(freq)
