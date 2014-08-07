@@ -1,4 +1,4 @@
-tey#Load Required Libraries
+#Load Required Libraries
 library(streamR)
 library(twitteR)
 library(stringr)
@@ -36,6 +36,9 @@ while(TRUE)
     i=i+1 #increaments the counter
   }
   tweets=filter #puts the filtered tweets back into the tweets dataframe
+  
+  #name of the accounts that have tweeted
+  accounts=tweets$screen_name
   
   #Extract the text and place it in a dataframe
   tweetsText=tweets$text
@@ -102,6 +105,7 @@ while(TRUE)
   #Loop takes the highest occuring words and tweets them
   i=1
   j=as.integer(head(wordCount$count,1)) #number of times the highest word occured
+  
   if(j>=5)
   {
     aLength=length(accounts)
@@ -121,12 +125,13 @@ while(TRUE)
       freq=table(unlist(aCount)) #counts the occurance of the accounts
       Data=as.data.frame(freq) #conversion to dataframe
       
-      loop=length(aCount)
+      loop=length(Data[1])
       tAcc=1
+      trendAccounts=c() #empty dataframe
       while(tAcc<=loop)
       {
-        trendAccounts=paste(as.String(Data[tAcc,1]),"(",Data[tAcc,2],")",sep="")
-        trendAccounts=append(x=trendAccounts,values=trendAccounts)
+        trendAcc=paste(as.String(Data[tAcc,1]),"(",Data[tAcc,2],")",sep="")
+        trendAccounts=append(x=trendAccounts,values=trendAcc)
         tAcc=tAcc+1
       }
       trendAccounts=as.String(trendAccounts)
