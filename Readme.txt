@@ -1,1 +1,1 @@
-This is a test readme by Sidney Ochieng as he was learning how to use Github
+This a suite of R code for capturing and analyzing data from Twitter.
