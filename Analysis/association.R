@@ -4,16 +4,24 @@
 library(RSQLite)
 library(tm)
 
+#================== CONNECT TO DATABASE ========================================================================
+
 # Setup SQLite Database
 drv <-dbDriver('SQLite')
 con <-dbConnect(drv,'twitter.sqlite')
 
+#================== DEFINE KEYWORD FOR EVENT ==================================================================
+
 # Keyword for Event
 event = ''
+
+#================== GET DATA FROM DATABASE ====================================================================
 
 # Load Data from Database
 sql <-paste("SELECT * FROM tweet_data WHERE [text] like '%",event,"%' ", sep="")
 a <-dbGetQuery(sql,con)
+
+#=================== CREATE TERM-DOCUMENT MATRIX ===============================================================
 
 # Create Corpus of Tweets
 b <-Corpus(VectorSource(a$text))
