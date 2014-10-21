@@ -13,6 +13,9 @@ registerTwitterOAuth(twitCred)
 
 #============================ Capture Tweets and Push to Database ===========================================================================
 
+# Twitter ID for Tracked Account
+UserID = ''
+
 #Capture Tweets and Push to Database
 while(TRUE)
 {
@@ -28,7 +31,7 @@ while(TRUE)
   
   # Listen for New Keyword/Hashtag
   for(thisid in a$user_id_str){
-    if(thisid == '816960116'){
+    if(thisid == UserID){
       tmp <-subset(a,a$user_id_str == 816960116)
       tmp2<-tmp[,c(1)]
       
@@ -52,9 +55,9 @@ while(TRUE)
     }
   }
   
-  #Write Tweets to Database
+  # Write Tweets to Database
   dbWriteTable(con1,'tweet_data',a,append=TRUE)
   
-  #Delete JSON file
+  # Delete JSON file after Push to DB
   file.remove('tweets.json')
 }
