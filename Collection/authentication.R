@@ -1,36 +1,44 @@
-#========================= Twitter App Authentication ========================================================================================
 
-#Load required libraries
+
+# Register app at https://apps.twitter.com to get authentication credentials
+
+#========================= Twitter App Authentication ===================================================================================
+
+# Load Required library
 library(twitteR)
 
-#========================= Set Working Directory =============================================================================================
+#========================= Set Working Directory ========================================================================================
 
-#Set Directory for All Files
-setwd('/ExtraStorage/scripts/Shiny App')
+# Set Directory for All Files
+setwd('~')
 
-#======================== App Credentials ====================================================================================================
+#======================== App Credentials ===============================================================================================
 
-#Setup Twitter App Credentials
+# Add App Keys Provided by Twitter
+consumerKey = ""
+consumerSecret = ""
+
+# Setup Twitter App Credentials
 reqURL <-"https://api.twitter.com/oauth/request_token"
 accessURL <-"https://api.twitter.com/oauth/access_token"
 authURL <-"https://api.twitter.com/oauth/authorize"
-consumerKey <-"8mzRs9PySHKmTcvXBcy5w"
-consumerSecret <-"ZKNBKniG4ADfyk3tHCWQsj0wowapFpXhqoj8O4OnQQ"
+consKey <- consumerKey
+consSecret <- consumerSecret
 
-#======================= Authenticate =======================================================================================================
+#======================= Authenticate ===================================================================================================
 
-#Authenticate Credentials
-twitCred <- OAuthFactory$new(consumerKey=consumerKey,consumerSecret=consumerSecret,requestURL=reqURL,accessURL=accessURL,authURL=authURL)
+# Authenticate Credentials
+twitCred <- OAuthFactory$new(consumerKey=consKey,consumerSecret=consSecret,requestURL=reqURL,accessURL=accessURL,authURL=authURL)
 
-#Download Authentication Certificate
+# Download Authentication Certificate
 download.file(url="http://curl.haxx.se/ca/cacert.pem", destfile="cacert.pem")
 
-#Initiate System Handshake
+# Initiate System Handshake
 twitCred$handshake(cainfo="cacert.pem")
 
-# Set SSL certs globally
+# Set SSL Certs 
 options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
 
-#save authentication credentials
+# Save Authentication Credentials
 save(list="twitCred", file="twitteR_credentials")
 #==========================================================================================================================================
