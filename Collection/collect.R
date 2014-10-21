@@ -32,7 +32,7 @@ while(TRUE)
   # Listen for New Keyword/Hashtag
   for(thisid in a$user_id_str){
     if(thisid == UserID){
-      tmp <-subset(a,a$user_id_str == 816960116)
+      tmp <-subset(a,a$user_id_str == UserID)
       tmp2<-tmp[,c(1)]
       
       # Add new keyword
