@@ -4,19 +4,29 @@
 library(RSQLite)
 library(tm)
 
-# Load Data from Database
+# Setup SQLite Database
+drv <-dbDriver('SQLite')
+con <-dbConnect(drv,'twitter.sqlite')
 
+# Keyword for Event
+event = ''
+
+# Load Data from Database
+sql <-paste("SELECT * FROM tweet_data WHERE [text] like '%",event,"%' ", sep="")
+a <-dbGetQuery(sql,con)
 
 # Create Corpus of Tweets
-text <-Corpus(VectorSource(tweets$text))
+b <-Corpus(VectorSource(a$text))
 
-#create a text-document matrix and remove stopwords
-c <-TermDocumentMatrix(b,control=list(removePunctuation=TRUE,stopwords=TRUE,tolower=TRUE,stemDocument=TRUE))
+# Create a Text-Document Matrix, Remove Stopwords, Convert Text to Lowercase
+c <-TermDocumentMatrix(b,control=list(removePunctuation=TRUE,stopwords=SMART,tolower=TRUE))
 
 #=================== FIND ASSOCIATIONS FOR EVENT ================================================================
 
+cor_limit = length(unique()/nrow(a)
+
 #find associations with keywords
-tmp <-findAssocs(c,'likoni',0.2)
+tmp <-findAssocs(c,event,cor_limit)
 
 #==================== QUERY DB ASSOCIATED WORDS =================================================================
 
