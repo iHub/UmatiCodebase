@@ -1,6 +1,6 @@
 # Umati Codebase
 
-Umati Codebase is a suite of code used for capturing and analyzing Twitter and Facebbok data. The analysis code base represents methodology used in the Umati project.  
+Umati Codebase is a suite of code used for capturing and analyzing Twitter and Facebbok data with the purpose of indentifying danerous speech. The analysis code base represents methodology used in the Umati project.  
 
 * Analysis
 * Collection
