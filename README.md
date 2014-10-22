@@ -8,7 +8,6 @@ Umati Codebase is a suite of code used for capturing and analyzing Twitter and F
 
 
 ![alt tag](http://community.ihub.co.ke/cache/image_resizer/84a93bab303ed9ec81f674926cc16b16.jpg)
-
 http://www.ihub.co.ke/umati
 
 
@@ -21,7 +20,6 @@ Keywords are stored in a csv file. Keywords.csv Store of the keywords.
 
 *Noise Reduction* Various noise reduction techniques to filter large amounts of tweets. Consists of two scripts: association.r classification.r Association.r This script works by finding the words the are most associated with a given keyword using association mining. We use a lower correlation limit of 0.2 but this should on varied depending on the size of your corpus. It then goes into the database and selects the tweets that mention your keyword and it's most relevant associations. It will also drop duplicates and retweets. Classification.r Does tokenisation for feature extraction and uses individual words as features for the naive-Bayes algorithm as a predictive model. Used to reduce noise.
 
-![alt tag](http://irefindex.org/wiki/images/9/93/R-logo.jpg)
 
 nlp.r Creates a parse tree of tweets. For visual inception for the grammatical structure of tweets, particularly tweets of interest.
 
