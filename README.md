@@ -1,4 +1,4 @@
-R Twitter
+# R Twitter
 
 This a suite of R code for capturing and analyzing data from Twitter. The Twitter collector Consists of 3 scripts and a csv file for collecting tweets:
 
