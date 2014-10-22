@@ -2,6 +2,8 @@
 
 This a suite of R code for capturing and analyzing data from Twitter. The Twitter collector Consists of 3 scripts and a csv file for collecting tweets:
 
+![alt tag](http://www.joyofdata.de/blog/wp-content/uploads/2014/06/twitter-150x135.png)
+
 * database.r 
 * authentication.r 
 * collect.r 
