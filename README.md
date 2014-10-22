@@ -2,7 +2,11 @@
 
 This a suite of R code for capturing and analyzing data from Twitter. The Twitter collector Consists of 3 scripts and a csv file for collecting tweets:
 
-Manage_Database.r authentication.r collect_tweets.r keywords.csv Manage_database.r
+* Manage_Database.r 
+* authentication.r 
+* collect_tweets.r 
+* keywords.csv 
+* Manage_database.r
 
 Used to manage the connection to the SQLite database. Set the working directory and the name of the your database Authentication.r This is used to set the authentication for access to the streaming API, read about setting it up here:http://community.ihub.co.ke/blogs/17424/how-to-using-r-to-capture-and-analyze-tweets collect_tweets.r Used to collect tweets based of a string of keywords, up to a limit of 400 keywords each <60 characters long There's also a hack that allows you to monitor a specific twitter account so that you can update the list of key words when you can't log into the server.
 
