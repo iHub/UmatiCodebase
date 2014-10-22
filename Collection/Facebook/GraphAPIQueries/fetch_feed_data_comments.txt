@@ -1,0 +1,1 @@
+graph.facebook.com/{0}?fields=message,created_time,comments.limit({1}).fields(message,from,created_time,id)&access_token={2}
