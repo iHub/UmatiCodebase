@@ -2,14 +2,17 @@
 
 Umati Codebase is a suite of code used for capturing and analyzing Twitter and Facebbok data. The analysis code base represents methodology used in the Umati project.  
 
-http://www.ihub.co.ke/umati
-
-![alt tag](http://community.ihub.co.ke/cache/image_resizer/84a93bab303ed9ec81f674926cc16b16.jpg)
-
-
 * Analysis
 * Collection
 * Utilities
+
+
+![alt tag](http://community.ihub.co.ke/cache/image_resizer/84a93bab303ed9ec81f674926cc16b16.jpg)
+
+http://www.ihub.co.ke/umati
+
+
+
 
 
 Used to manage the connection to the SQLite database. Set the working directory and the name of the your database Authentication.r This is used to set the authentication for access to the streaming API, read about setting it up here:http://community.ihub.co.ke/blogs/17424/how-to-using-r-to-capture-and-analyze-tweets collect_tweets.r Used to collect tweets based of a string of keywords, up to a limit of ** 400 keywords** each <60 characters long There's also a hack that allows you to monitor a specific twitter account so that you can update the list of key words when you can't log into the server.
