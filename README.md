@@ -4,7 +4,7 @@ R for Twitter a suite of R code for capturing and analyzing Twitter data. The an
 
 http://www.ihub.co.ke/umati
 
-![alt tag](http://www.joyofdata.de/blog/wp-content/uploads/2014/06/twitter-150x135.png)
+![alt tag](http://community.ihub.co.ke/cache/image_resizer/84a93bab303ed9ec81f674926cc16b16.jpg)
 
 
 * Analysis
