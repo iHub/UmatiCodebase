@@ -1,6 +1,8 @@
 # R for Twitter
 
-R for Twitter a suite of R code for capturing and analyzing Twitter data. The analysis code base represents methodology used in the [http://www.ihub.co.ke/umati Umati] project   
+R for Twitter a suite of R code for capturing and analyzing Twitter data. The analysis code base represents methodology used in the Umati project  
+
+http://www.ihub.co.ke/umati
 
 ![alt tag](http://www.joyofdata.de/blog/wp-content/uploads/2014/06/twitter-150x135.png)
 
