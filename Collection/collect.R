@@ -52,11 +52,13 @@ while(TRUE)
       
       # Push Search results to DB in separate table
       dbWriteTable(con1,'search_table',search_df,append=TRUE)
+      dbCommit(con)
     }
   }
   
   # Write Tweets to Database
-  dbWriteTable(con1,'tweet_data',a,append=TRUE)
+  dbWriteTable(con,'tweet_data',a,append=TRUE)
+  dbCommit(con)
   
   # Delete JSON file after Push to DB
   file.remove('tweets.json')
