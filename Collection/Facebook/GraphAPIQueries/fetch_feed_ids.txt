@@ -1,0 +1,1 @@
+graph.facebook.com/{0}?fields={1}.since({2}).until({3}).limit(500).fields(id)&access_token={4}
