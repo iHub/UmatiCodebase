@@ -1,0 +1,28 @@
+<!DOCTYPE html>	
+<html>
+<head>
+    <title>Data Tagger</title>
+    
+    <!-- link to css file -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='_css/style.css') }}">
+
+</head>
+<body>
+	<div id="container">
+		<!--Form Header-->
+		<header id = "todo-header">
+			<h1>Data Tagger:</h1>
+		</header>
+
+		<div id='landing-div'>
+			{% block body %}{% endblock %}
+	
+			{% for message in get_flashed_messages() %}
+  				<div class=flash>{{ message }}</div>
+  			{% endfor %}			
+	
+		</div>
+		
+	</div>
+</body>
+</html>
