@@ -9,10 +9,10 @@ Umati Codebase is a suite of code used for capturing and analyzing Twitter and F
 
 ![alt tag](http://community.ihub.co.ke/cache/image_resizer/84a93bab303ed9ec81f674926cc16b16.jpg)
 
-### Project Homepage :
+##### Project Homepage :
 http://www.ihub.co.ke/umati
 
-### UmatiCodebase Wiki :
+##### UmatiCodebase Wiki :
 https://github.com/iHub/UmatiCodebase/wiki
 
 
