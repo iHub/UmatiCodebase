@@ -1,0 +1,36 @@
+<!DOCTYPE html>	
+<html>
+<head>
+    <title>Data Tagger</title>
+    
+    <!-- link to css file -->
+    <!-- <link rel="stylesheet" type="text/css" href="../static/_css/style.css" /> -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='_css/style.css') }}">
+
+    <!-- link to javascript files -->
+
+    <script src="../static/_js/jquery-2.1.1.min.js"></script>
+    <script src="../static/_js/create_sessions_script.js"></script>
+	
+</head>
+<body>
+	<div id="container">
+		<!--Form Header-->
+		<div id='landing-div'>
+			<header id = "todo-header">
+				<h1>Data Tagger</h1>
+			</header>
+
+			<span>
+				<p id='intro-msg'>A web platform that can be used to tag data collected from various sources.
+					Crowd Source tagging to different people by creating a question then requesting them to tag via links sent by email.
+				</p>
+			</span>
+			<div id ='btn-div'><a id="create-sessions" href="/create" class="myButtons">Start tagging by creating tagging sessions</a></div>
+
+			{% block body %}{% endblock %}
+		</div>
+		
+	</div>
+</body>
+</html>
