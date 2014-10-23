@@ -1,10 +1,11 @@
 # Umati Codebase
 
-Umati Codebase is a suite of code used for capturing and analyzing Twitter and Facebbok data with the purpose of indentifying danerous speech. The analysis code base represents methodology used in the Umati project.  
+The Umati Codebase is suite of analysis code built in R and Python for purposes of indentifying inflammatory online. It also represents translation of Umati methodology on dangerous speech into machine learning algorithms. The code suite is grouped into three categories covering data collection via Facebook and Twitter API, Utilities for setting up computing environment and analysis that contains machine learning algorithms.
 
-* Analysis
+
+* Analysis 
 * Collection
-* Utilities
+* Utilities 
 
 
 ![alt tag](http://community.ihub.co.ke/cache/image_resizer/84a93bab303ed9ec81f674926cc16b16.jpg)
