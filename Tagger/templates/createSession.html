@@ -1,0 +1,61 @@
+<!DOCTYPE html>	
+<html>
+<head>
+    <title>Tagger</title>
+    
+    <!-- link to css file -->
+    <link rel="stylesheet" type="text/css" href="../static/_css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../static/_css/bootstrap.css"/>
+
+    <!-- link to javascript files -->
+    <script src="../static/_js/jquery-2.1.1.min.js"></script>
+    <script src="../static/_js/create_sessions_script.js"></script>
+	
+</head>
+<body>
+	<div id="container">
+		<!--Form Header-->
+
+		{% for message in get_flashed_messages() %}
+  		<div class=flash>{{ message }}</div>
+  		{% endfor %}		
+
+		<header id = "todo-header">
+			<h1>Data Tagger: Create Tagging Sessions</h1>
+		</header>
+		<!-- the question and response settings -->
+		<div id='create-settings'>
+ 			<p>Type a question in the space given below that will be used to to tag the data</p>
+ 			<textarea rows="3" cols="160" id='tag-question'></textarea>			
+ 		</div>
+		<div id ='create-taggers'>
+			<span>
+				<label>User Name:</label>
+				<input type='text' id='tagger-name' class ='reqText'></input>
+				<label>User Email:</label>
+				<input type='email' id='tagger-email' class ='reqText'></input>
+				<label>Number To Tag:</label>
+				<input type='number' min='1' id='number-to-tag' class ='reqText'></input>
+				<a href="#" id="append-user" class="tick" onclick="addUser()">Add</a>
+				
+			</span>
+			<table id='taggers-table' class="table table-bordered table-striped table-condensed table-hover">
+				<thead><tr>
+					<th style="width: 40%">User Name</th>
+					<th style="width: 40%">User Email</th>
+					<th style="width: 20%">Number To Tag</th>
+				</tr></thead>
+				<tbody></tbody>
+			</table>							
+		</div>			
+
+		<!-- Space that needs to be utilized -->
+		<div id='status_bar'>
+			<span>
+				<!-- <a id="save-button" href="#" onclick="createTagSession()" class="myButton">Save Labels</a> -->
+				<a id="save-sessions" href="#" onclick="createTagSession()" class="myButtons">Create Sessions</a>
+			</span>
+		</div>
+	</div>
+</body>
+</html>
