@@ -1,8 +1,9 @@
 # Umati Codebase
 
-The Umati Codebase is suite of analysis code built in R and Python for purposes of studying the propagation of inflammatory speech online. It also represents translation of Umati methodology on dangerous speech into machine learning algorithms. The code suite is grouped into three main categories:
+The Umati Codebase is suite of analysis code built in R and Python for purposes of studying the propagation of inflammatory speech online. It also represents the machine translation of the Umati methodology on factors for identifying dangerous speech in Kenya (The Susan Benesch Framework). The code suite is grouped into three main categories:
 
 * Collection
+* Tagger
 * Analysis
 * Utilities
 
