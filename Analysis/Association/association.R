@@ -31,20 +31,21 @@ c <-TermDocumentMatrix(b,control=list(removePunctuation=TRUE,stopwords=SMART,tol
 
 #=================== FIND ASSOCIATIONS FOR EVENT ================================================================
 
-cor_limit = length(unique()/nrow(a)
+# Compute Optimal Lower Correlation Limit
+cor_limit = length(unique(a$text)/nrow(a))
 
-#find associations with keywords
+# Find Words Associated with Keyword
 tmp <-findAssocs(c,event,cor_limit)
 
 #==================== QUERY DB ASSOCIATED WORDS =================================================================
 
-#create empy data frame
+# Create Empy Data Frame
 df = data.frame()
 
-#dynamic SQL query
+# Dynamic SQL Query
 for (rn in rownames(tmp))
 {
-  qry_str = paste("SELECT * FROM likoni WHERE [text] like '%likoni%' AND [text] like '%", rn, "%' ",sep="")
+  qry_str = paste("SELECT * FROM likoni WHERE [text] like '%", event, "%'","AND [text] like '% ", rn, "%'" ,sep="")
   df1 <-dbGetQuery(con,qry_str)
   df <-rbind(df,df1)
 }
