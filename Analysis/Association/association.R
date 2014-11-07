@@ -14,7 +14,8 @@ event = ''
 
 #================== GET DATA FROM DATABASE =======================================================================
 # Load Data from Database
-sql <-paste("SELECT * FROM tweet_data WHERE [text] like '%",event,"%' ", sep="")
+SAMPLE = 1000
+sql <-paste("SELECT * FROM tweet_data WHERE [text] like '%",event,"%' AND row_names ", sep="")
 a <-dbGetQuery(sql,con)
 
 #=================== CREATE TERM-DOCUMENT MATRIX =================================================================
@@ -49,11 +50,11 @@ index_to_remove <-data.frame()
 mat <-matrix(nrow = nrow(b),ncol = nrow(b))
 
 # Find Retweets with String Distance Metric
-for (i in 1:nrow(b))
+for (i in 1:nrow(c))
 {
-  for (j in 1:nrow(b))
+  for (j in 1:nrow(c))
   {
-    mat[i,j] <-stringdist(c[i],c[j])
+    mat[i,j] <-stringdist(df[i],df[j])
     if(mat[i,j] == 10 | mat[i,j] == 0 | mat[i,j] > 3)
     {
       index_to_remove <-c(index_to_remove,i)
