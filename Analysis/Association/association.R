@@ -52,18 +52,22 @@ for (rn in rownames(tmp))
 
 #================= FILTERING DUPLICATES/RETWEETS ===============================================================
 
-#calculate levenshtein distance between succesive tweets
-indexes_to_remove = c()
+#Create Empty Data Frame and Matrix
+index_to_remove <-data.frame()
+mat <-matrix(nrow = nrow(b),ncol = nrow(b))
 
-for (i in 1:length(df$text))
+#Find Retweets with String Distance Metric
+for (i in 1:nrow(b))
 {
-  distance <-(stringdist(df$text[i],df$text[i+1],method='lv'))   
-  if(!is.na(distance)){
-    if(distance == 10 | distance < 3 ){
-      indexes_to_remove = c(indexes_to_remove,i)
+  for (j in 1:nrow(b))
+  {
+    mat[i,j] <-stringdist(c[i],c[j])
+    if(mat[i,j] == 10 | mat[i,j] == 0 | mat[i,j] > 3)
+    {
+      index_to_remove <-c(index_to_remove,i)
     }
   }
 }
 
-#remove retweets
-d <-unique(df[-indexes_to_remove,]$text)
+#Remove Tweets with Duplicate Inidex
+c <-b$text[-c(index_to_remove)]
