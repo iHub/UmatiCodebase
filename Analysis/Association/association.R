@@ -15,7 +15,7 @@ event = ''
 #================== GET DATA FROM DATABASE =======================================================================
 # Load Data from Database
 SAMPLE = 1000
-sql <-paste("SELECT * FROM tweet_data WHERE [text] like '%",event,"%' AND row_names ", sep="")
+sql <-paste("SELECT * FROM tweet_data WHERE [text] like '%",event,"%' AND row_names > = SAMPLE ", sep="")
 a <-dbGetQuery(sql,con)
 
 #=================== CREATE TERM-DOCUMENT MATRIX =================================================================
