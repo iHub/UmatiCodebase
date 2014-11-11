@@ -1,69 +1,88 @@
 #=================== ASSOCIATION MINING =========================================================================
 # Load Required Libraries
 library(RSQLite)
+library(stringdist)
 library(tm)
 
 #================== CONNECT TO DATABASE ==========================================================================
 # Setup SQLite Database
 drv <-dbDriver('SQLite')
-con <-dbConnect(drv,'twitter.sqlite')
+con <-dbConnect(drv,'mpeketoni.sqlite')
 
 #================== DEFINE KEYWORD FOR EVENT =====================================================================
 # Keyword for Event
-event = ''
+event = 'mpeketoni'
 
 #================== GET DATA FROM DATABASE =======================================================================
 # Load Data from Database
-
-while (True)
-{
-  sample = 1000
-  sql <-paste("SELECT * FROM tweet_data WHERE [text] like '%",event,"%' AND row_names > = SAMPLE ", sep="")
- a <-dbGetQuery(sql,con)
-
- #=================== CREATE TERM-DOCUMENT MATRIX =================================================================
- # Create Corpus of Tweets
- b <-Corpus(VectorSource(a$text))
-
- # Create a Text-Document Matrix, Remove Stopwords, Convert Text to Lowercase
- c <-TermDocumentMatrix(b,control=list(removePunctuation=TRUE,stopwords=SMART,tolower=TRUE))
-
- #=================== FIND ASSOCIATIONS FOR EVENT =================================================================
- # Compute Optimal Lower Correlation Limit
- cor_limit = length(unique(a$text)/nrow(a))*0.1
-
- # Find Words Associated with Keyword
- tmp <-findAssocs(c,event,cor_limit)
-
- #==================== QUERY DB FOR ASSOCIATED WORDS ==============================================================
- # Create Empy Data Frame
- df = data.frame()
-
- # Dynamic SQL Query
- for (rn in rownames(tmp))
- {
-   qry_str = paste("SELECT * FROM likoni WHERE [text] like '%", event, "%'","AND [text] like '% ", rn, "%' LIMIT 1000" ,sep="")
-   df1 <-dbGetQuery(con,qry_str)
-   df <-rbind(df,df1)
- }
-
- #================= FILTERING DUPLICATES/RETWEETS ==================================================================
- # Create Empty Data Frame and Matrix
- index_to_remove <-data.frame()
- mat <-matrix(nrow = nrow(b),ncol = nrow(b))
-
- # Find Retweets with String Distance Metric
- for (i in 1:nrow(c))
- {
-   for (j in 1:nrow(c))
-   {
-    mat[i,j] <-stringdist(df[i],df[j])
-    if(mat[i,j] == 10 | mat[i,j] == 0 | mat[i,j] > 3)
+while (TRUE)
     {
-      index_to_remove <-c(index_to_remove,i)
-    }
-  }
-}
+      sql <-paste("SELECT * FROM mpeketoni WHERE [text] like '%",event,"%' LIMIT 1000", sep="")
+      a <-dbGetQuery(con,sql)
+      a1 <-a[,-c(1)]
+      
+      if(dbExistsTable(con,'intermediate'))
+        {
+        dbWriteTable(con,'intermediate',a1)
+        }
 
- #Remove Tweets with Duplicate Inidex
- d <-b$text[-c(index_to_remove)]
+      #=================== CREATE TERM-DOCUMENT MATRIX ===========================================================
+      # Create Corpus of Tweets
+      b <-Corpus(VectorSource(a$text))
+  
+      # Create a Text-Document Matrix, Remove Stopwords, Convert Text to Lowercase
+      c <-TermDocumentMatrix(b,control=list(removePunctuation=TRUE,stopwords='english',tolower=TRUE))
+  
+      #=================== FIND ASSOCIATIONS FOR EVENT ===========================================================
+      # Compute Optimal Lower Correlation Limit
+      tokens = MC_tokenizer(a$text)
+      len = length(unique(tokens))
+      cor_limit = len/nrow(a)*0.1
+  
+      # Find Words Associated with Keyword
+      tmp <-findAssocs(c,event,cor_limit)
+  
+      #==================== QUERY DB FOR ASSOCIATED WORDS ========================================================
+      # Create Empy Data Frame
+      df = data.frame()
+  
+      # Dynamic SQL Query
+      for (rn in rownames(tmp))
+        {
+          qry_str = paste("SELECT * FROM intermediate WHERE [text] like '%", event, "%'","AND [text] like '% ", rn, "%'" ,sep="")
+          df1 <-dbGetQuery(con,qry_str)
+          df <-rbind(df,df1)
+          rm(df1)
+        }
+  
+      #================= FILTERING DUPLICATES/RETWEETS ==========================================================
+      # Remove Native Retweets
+      rt = as.vector(unique(df$text))
+  
+      # Create Empty Data Frame and Matrix
+      index_to_remove <-c()
+      mat <-matrix(nrow = length(rt),ncol = length(rt))
+  
+      # Find Similar String Distance Metric
+      for (i in 1:length(rt))
+        {
+          for (j in 1:length(rt))
+            {
+              mat[i,j] <-stringdist(rt[i],rt[j],method='lv')
+              if(!is.na(mat[i,j]))
+                {
+                if(mat[i,j] <= 20 && mat[i,j]!= 0)
+                  {
+                    x <- i
+                    index_to_remove <-rbind(x,index_to_remove)
+                    rm(x)
+                  }
+                }
+            }
+        } 
+  
+        #Remove Simialr Tweets 
+        d <- rt[-c(index_to_remove)]
+        write.csv(d,"tweets.csv")
+     }
+  }
