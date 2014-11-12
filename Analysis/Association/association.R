@@ -15,8 +15,7 @@ event = 'mpeketoni'
 
 #================== GET DATA FROM DATABASE =======================================================================
 # Load Data from Database
-while (TRUE)
-    {
+
       sql <-paste("SELECT * FROM mpeketoni WHERE [text] like '%",event,"%' LIMIT 1000", sep="")
       a <-dbGetQuery(con,sql)
       a1 <-a[,-c(1)]
@@ -85,4 +84,4 @@ while (TRUE)
         d <- rt[-c(index_to_remove)]
         write.csv(d,"tweets.csv")
      }
-  }
+
