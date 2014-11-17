@@ -93,7 +93,7 @@ slicer <-function(event,number){
 
 #--------------------------- Use Slicer Function -------------------------------------------------------------------------------
 
-slicer('mpeketoni', 1000)
+slicer()
 
 
 
