@@ -11,8 +11,8 @@ load("twitteR_credentials")
 #Register Authentication 
 registerTwitterOAuth(twitCred)
 
-#The follow string
-following=c("115141256","16712223","25985333","92731878","20087934","11680312","28089461","79596159","154036419","35206251","25979455","53037279")
+#The follow string of accounts to monitor
+following=c("")
 while(TRUE)
 {
   #Capture Tweets via the Streaming API
@@ -145,55 +145,3 @@ while(TRUE)
     }
   }
 }
-#everything after this line is experimentation
-#something=lookupUsers("princelySid,blackorwa")
-#f=findFreqTerms(e,lowfreq=2)
-
-accounts=tweets$screen_name
-expWC=wordCount
-expDF=tweetsDF
-dim(tweetsDF)
-rownames(tweetsDF)[1]==rownames(wordCount)[1]
-#The loop is used to find out where the 2 highiest occuring words happened
-k=1
-lim=length(expWC$word)
-a=list()
-repeat{
-  b=1
-  while(b<=2)
-  {
-    if(expWC[b,2]==rownames(expDF)[k]){
-      a=append(x=a,values=k)
-    }
-    b=b+1
-  }
-  k=k+1
-  if(k>=lim) break()
-}
-tret=unlist(a)
-
-#Find the accounts that tweeted the high words
-aLength=length(accounts)
-aCount=list()
-d=1
-test=1
-repeat{
-  repeat{
-    if(expDF[tret[test],d]>=1)
-    {
-      aCount=append(x=aCount,values=accounts[d])
-    }
-    d=d+1
-    if(d>=aLength) break()
-  }
-  TT=paste(as.String(Data[test,1]),"(",Data[test,2],")",sep="")
-  #tweet(TT)
-  test=test+1
-  if(test>=2) break()
-}
-
-freq=table(unlist(aCount))
-Data=as.data.frame(freq)
-TT=paste(as.String(Data[1,1]),"(",Data[1,2],")",sep="")
-c=unlist(a)
-names(freq)
