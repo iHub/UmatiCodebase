@@ -1,11 +1,11 @@
 '''
-Created on Nov 10, 2013
-
-@author: phcostello
+Script    : Classification-Python
+Created   : November 21, 2014
+Author(s) : iHub Research
+Version   : v1.0
+License  : Apache License, Version 2.0
 '''
 
-# if __name__ == '__main__':
-#     pass
 from BoilerPlate import *
 
 ## get unique labels as done in sklearn.metrics super annoytng
@@ -14,29 +14,18 @@ def unique_labels(*lists_of_labels):
     labels = set().union(*(l.ravel() if hasattr(l, "ravel") else l for l in lists_of_labels))
     return np.asarray(sorted(labels))
 
-
-
-
-
 # Import data
-rawdata = pd.read_csv('20131107_UmatiData.csv')
+rawdata = pd.read_csv('~')
 
 from pandas.io.parsers import  ExcelFile
-xls = ExcelFile('20131107_UmatiData.xls')
-rawdata = xls.parse('20131107_UmatiData', index_col=None, na_values=['NA'])
+xls = ExcelFile('~')
+rawdata = xls.parse('~', index_col=None, na_values=['NA'])
 
 #drop na actual text rows
-
 rawdata = rawdata.dropna(subset=['Actual text'])
 
 # Extract features
 text = rawdata['Actual text']
-# floats = []
-# for id, it in enumerate(text.tolist()):
-#     if isinstance(it, float):
-#         floats.append(id)
-# floats
-
 
 #Make large word features
 #uses sklearn CountVectoriser/bag of words
@@ -71,7 +60,6 @@ lb.classes_
 lb.multilabel
 bin_labels = lb.transform(target_ml)
 bin_labels.shape
-# binLabels = [lb.transform(it) for it in target_ml]
 binLabels[0]
 
 type((1,2,3))
@@ -131,38 +119,15 @@ for train_index, test_index in skf:
     clfs.append(this_clf)
     this_predicted = this_clf.predict(Xcsr[test_index])
     print np.array(zip(y_test,this_predicted))
-    
-# #         print clf.fit(Xcsr[train_index],y[train_index]).score(Xcsr[test_index],y[test_index])
-# #     this_label1 = unique_labels(list(y[test_index]))
-# #     this_label2 = unique_labels(list(this_predicted))
-#     this_label1 = np.unique(y[test_index]).tolist()
-#     this_label2 = np.unique(this_predicted).tolist()
-#     this_label = list(set(this_label1).union( set(this_label2)))
-#     print this_label
-# #     this_label = this_label.tolist()
-#     print len(this_label)
-#     cm_test = metrics.confusion_matrix(y_test,
-#                                        this_predicted)#,this_label) 
-#     print cm_test.shape
-# #     labels.append(this_label)
-#     cms.append(cm_test)
-#     
-#    
-
-
  
 df = pd.DataFrame(cms[0], index= labels[0], columns=labels[0])
-
 cms[0]
-
 df.to_csv('output.csv')
 
 this_predicted = clfs[1].predict(X)
 cm_training = metrics.confusion_matrix(y,this_predicted)
 print "Confusion Matrix on training data"
 print cm_training.shape
-
-
 
 df=pd.DataFrame(target)
 df['predicted']=this_predicted
