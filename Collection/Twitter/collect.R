@@ -1,5 +1,12 @@
-#============================= Collect Tweets =============================================================================
 
+'
+Script    : Collector
+Created   : November 21, 2014
+Author(s) : iHub Research
+Version   : v1.0
+License   : Apache License, Version 2.0
+'
+#============================= Collect Tweets =============================================================================
 # Load Required Libraries
 library(streamR)
 library(twitteR)
@@ -12,7 +19,6 @@ load("twitteR_credentials")
 registerTwitterOAuth(twitCred)
 
 #============================ Capture Tweets and Push to Database ===========================================================================
-
 # Twitter ID for Tracked Account
 UserID = ''
 
