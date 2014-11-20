@@ -1,18 +1,28 @@
-#Load Required Libraries
+'
+Script    : Tracker
+Created   : November 21, 2014
+Author(s) : iHub Research
+Version   : v1.0
+License   : Apache License, Version 2.0
+'
+
+# =========================================== Load Required Libraries =====================================================
 library(streamR)
 library(twitteR)
 library(stringr)
 library(tm)
 
 
-#Load Authentication File
+# ========================================= Load Authentication File =====================================================
 load("twitteR_credentials")
 
-#Register Authentication 
+# ========================================= Register Authentication =====================================================
 registerTwitterOAuth(twitCred)
 
-#The follow string of accounts to monitor
+# ========================================= The follow string of accounts to monitor ====================================
 following=c("")
+
+# ========================================= Monitoring ==================================================================
 while(TRUE)
 {
   #Capture Tweets via the Streaming API
@@ -24,11 +34,11 @@ while(TRUE)
   #delete the json file
   try(expr=file.remove('tweets.json'))
   
-  
   #Filter to remove tweets that mention the follow account but are not from it
   j=length(following)
   filter=NULL #intialise the dataframe to hold the filtered data as empty
   i=1 #initialise the loop counter
+  
   while(i<=j)
   {
     tempFilter=tweets[tweets$user_id_str==following[i], ] #filters tweets based on the user_id based on the following[i]
@@ -79,7 +89,6 @@ while(TRUE)
   
   #arranges the words in decreasing order.
   wordCount=wordCount[order(wordCount$count, decreasing=TRUE), ]
-  
   
   #Takes the first 2 highest occuring words and their counts and puts them in variables
   keyWords=head(wordCount$word,2)
