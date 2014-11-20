@@ -1,6 +1,6 @@
 
 '
-Script    : Self-Annotatio
+Script    : Self-Annotation
 Created   : November 21, 2014
 Author(s) : iHub Research
 Version   : v1.0
@@ -37,19 +37,26 @@ con <-dbConnect(drv,'twitter.sqlite')
 
 #============================= Get Data ========================================================================================
 
-#Grab Data from Database
-sql <-"SELECT * FROM tweet_data WHERE [text] like '%Mpeketoni%' "
-b <-dbGetQuery(con,sql)
+# Event
+event = ''
 
-#============================== Association Mining ===========================================================================
+# Grab Data from Database
+sql <-paste("SELECT * FROM tweet_data WHERE [text] like '% " , event, "%' ",sep="")
+a <-dbGetQuery(con,sql)
+
+# ============================== Association Mining ===========================================================================
 
 #Create a Term-Document Matrix
 corpus <-Corpus(VectorSource(b$text))
 tdm <-TermDocumentMatrix(corpus,control=list(removePunctuation=TRUE,tolower=TRUE,stopwords=TRUE))
 
+# Compute Optimal Lower Correlation Limit
+tokens = MC_tokenizer(a$text)
+len = length(unique(tokens))
+cor_limit = len/nrow(a)*0.1
+
 #Find Associated Words
-tmp <-findAssocs(tdm,'raila',0.01)
-tmp
+tmp <-findAssocs(tdm,event,cor_limit)
 
 #============================ Dynamic SQL Query =============================================================================
 df = data.frame()
@@ -57,7 +64,7 @@ df = data.frame()
 #dynamic SQL query
 for (rn in rownames(tmp))
 {
-  qry_str = paste("SELECT * FROM likoni WHERE [text] like '%likoni%' AND [text] like '%", rn, "%' ",sep="")
+  qry_str = paste("SELECT * FROM likoni WHERE [text] like '% ", event, "%'","AND [text] like '% ", rn, "%'" ,sep="")
   df1 <-dbGetQuery(con,qry_str)
   df <-rbind(df1,df)
 }
