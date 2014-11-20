@@ -1,3 +1,4 @@
+
 '
 Script    : Classification
 Created   : November 21, 2014
@@ -5,7 +6,6 @@ Author(s) : iHub Research
 Version   : v1.0
 License   : Apache License, Version 2.0
 '
-
 #=================================================================== CLASSIFICATION ================================================================================
 # Load Required Libraries
 library(tm)
@@ -15,7 +15,7 @@ library(caret)
 library(RWeka)
 #=================================================================== SETTINGS ======================================================================================
 # Set Working Directory
-setwd('~')
+setwd('/Users/amoeba/Downloads/')
 
 # Set Default Number of Threads
 options(mc.cores=1)
@@ -25,7 +25,7 @@ options(java.parameters = "-Xmx2g")
 
 #=================================================================== LOAD DATA ======================================================================================
 # Load Annotated CSV File
-a <-read.csv('~')
+a <-read.csv('gikomba_annotated.csv')
 
 # ==================================================================  FEATURE EXTRACTION ============================================================================
 #Create Bigram Tokenizer 
@@ -47,7 +47,8 @@ y <-as.factor(compute$label)
 model <-train(x,y,'nb',trControl=trainControl(method='cv',number=10))
 
 # Prediction
-d <-predict(model,matrix)
+d <-predict(model,features)
 
 # Confusion Matrix to Visualize Classification Errors
 table(predict(model$finalModel,x)$class,)
+
