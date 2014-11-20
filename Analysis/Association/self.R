@@ -1,3 +1,12 @@
+
+'
+Script    : Self-Annotatio
+Created   : November 21, 2014
+Author(s) : iHub Research
+Version   : v1.0
+License   : Apache License, Version 2.0
+'
+
 #============================ Set Environment  =============================================================================
 
 #Load Required Packages
@@ -14,7 +23,7 @@ library(stringr)
 #============================ Settings ======================================================================================
 
 #Set Working Directory
-setwd('/Users/amoeba/Downloads')
+setwd('~')
 
 #Set Default Number of Threads
 options(mc.cores=1)
