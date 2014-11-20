@@ -34,7 +34,7 @@ BigramTokenizer <- function(x) NGramTokenizer(x, Weka_control(min = 2, max = 2))
 
 # Create a Term-Document Matrix
 corpus <-Corpus(VectorSource(a$text))
-tdm <-TermDocumentMatrix(corpus,control=list(removePunctuation=TRUE,tolower=TRUE,stopwords=TRUE))
+tdm <-TermDocumentMatrix(corpus,control=list(removePunctuation=TRUE,tolower=TRUE,stopwords=TRUE,tokenizer=BigramTokenizer))
 tdm1 <-removeSparseTerms(tdm,0.99)
 
 #Bind Bigrams to Bigrams as Additional Column
@@ -43,7 +43,7 @@ compute <-cbind(features,a$label)
 
 #================================================================= CREATE PREDICTION MODEL =============================================================================
 # Select Target and Feature Variables
-x <-compute
+x <-compute[,c()]
 y <-as.factor(compute['label'])
 model <-train(x,y,'nb',trControl=trainControl(method='cv',number=10))
 
