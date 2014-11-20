@@ -15,7 +15,7 @@ library(caret)
 library(RWeka)
 #=================================================================== SETTINGS ======================================================================================
 # Set Working Directory
-setwd('/Users/amoeba/Downloads/')
+setwd('~')
 
 # Set Default Number of Threads
 options(mc.cores=1)
@@ -25,7 +25,7 @@ options(java.parameters = "-Xmx2g")
 
 #=================================================================== LOAD DATA ======================================================================================
 # Load Annotated CSV File
-a <-read.csv('gikomba_annotated.csv')
+a <-read.csv('~')
 
 # ==================================================================  FEATURE EXTRACTION ============================================================================
 #Create Bigram Tokenizer 
