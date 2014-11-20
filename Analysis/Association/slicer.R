@@ -4,6 +4,7 @@ Script    : Slicer
 Created   : November 21, 2014
 Author(s) : iHub Research
 Version   : v1.0
+License  : Apache License, Version 2.0
 '
 
 slicer <-function(event,number){
