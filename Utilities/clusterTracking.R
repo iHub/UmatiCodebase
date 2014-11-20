@@ -2,7 +2,7 @@
 Script    : Tracker
 Created   : November 21, 2014
 Author(s) : iHub Research
-Version   : v1.0
+Version   : v0.4
 License   : Apache License, Version 2.0
 '
 
