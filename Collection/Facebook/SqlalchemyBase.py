@@ -1,6 +1,6 @@
 
 '''
-Script    : Facebook Query
+Script    : Facebook DB_setup
 Created   : November 21, 2014
 Author(s) : iHub Research
 Version   : v1.0
