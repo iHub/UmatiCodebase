@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
-Created on Jun 18, 2014
-@author: chalenge
 
-General settings for the app! 
+
+'''
+Script    : Tagger Settings
+Created   : November 21, 2014
+Author(s) : iHub Research
+Version   : v1.0
+License   : Apache License, Version 2.0
 '''
 
 #dbase Configuration settings
 
 dbaseConfig = {
   'user': 'postgres',
-  # 'password': 'orwa',
-  # 'host': 'localhost',
+  # 'password': '~',
+  # 'host': '~',
   'database': 'Umati',
   # 'port': 5432
 }
