@@ -1,3 +1,12 @@
+
+'''
+Script    : Facebook Database Management 
+Created   : November 21, 2014
+Author(s) : iHub Research
+Version   : v1.0
+License   : Apache License, Version 2.0
+'''
+
 from dateutil import parser
 import datetime
 
@@ -16,7 +25,7 @@ class DBmanager(object):
          
         #Create connection to db        
         #self.engine = create_engine('sqlite:///'+db_name,echo=False)
-	self.engine = create_engine('postgresql://patrick:dlabroot@localhost:5432/Umati',echo=False)
+	self.engine = create_engine('~',echo=False)
         #connect to engine
         Session = sessionmaker(bind=self.engine)
         self.session = Session() #The session object is now the handle to our db
