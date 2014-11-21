@@ -1,14 +1,24 @@
+
+
+'''
+Script    : Facebook Collector
+Created   : November 21, 2014
+Author(s) : iHub Research
+Version   : v1.0
+License   : Apache License, Version 2.0
+'''
+
 import datetime
 import os
 import datetime
 import pickle
 import time
-#add dir to python path
 import sys
-#filedir = os.path.dirname(os.path.realpath(__file__))
-filedir = '/home/patrick/Projects/FB_Collector/HerokTestApp'
+
+filedir = '~'
 
 sys.path.append(filedir)
+
 #User 'logger.py' for logging settings
 import logging
 import loggerSetup
