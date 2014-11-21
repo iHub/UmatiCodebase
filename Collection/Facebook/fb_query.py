@@ -1,10 +1,16 @@
+
+'
+Script    : Facebook Query
+Created   : November 21, 2014
+Author(s) : iHub Research
+Version   : v1.0
+License   : Apache License, Version 2.0
+'
+
 import os
 import requests
-#get unix time for x time ago.
 import datetime
 import time
-
-
 
 #User 'logger.py' for logging settings
 import logging
