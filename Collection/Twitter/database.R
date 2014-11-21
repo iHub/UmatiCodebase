@@ -1,4 +1,4 @@
-# Create SQLite Database
+
 
 # Load Required Library
 library(RSQLite)
