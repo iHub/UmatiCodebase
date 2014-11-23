@@ -31,9 +31,9 @@ app.config.update(dict(
     MAIL_PORT=465,
     MAIL_USE_TLS = True,
     MAIL_USE_SSL= False,
-    MAIL_USERNAME = 'chalenge@ihub.co.ke',
-    MAIL_PASSWORD = 'testdevapp',
-    DEFAULT_MAIL_SENDER = ("Python Tagging App", "chalenge@ihub.co.ke"),
+    MAIL_USERNAME = '',
+    MAIL_PASSWORD = '',
+    DEFAULT_MAIL_SENDER = ("Python Tagging App", ""),
     SECRET_KEY = 'MPF\xfbz\xfbz\xa7\xcf\x84\x8cd\rg\xd5\x04\xee\xa4\xd6\xb9]\xf8\x0e\xf3'
 ))
 
