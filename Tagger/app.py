@@ -12,30 +12,18 @@ License   : Apache License, Version 2.0
 import os
 import binascii
 import dbaseops
+import settings
 import json
-import ast
-import time
 
-from flask import Flask, request, session, g, redirect, url_for, \
-      abort, render_template, flash, jsonify, Markup
-from time import strftime
+from flask import Flask, request, session, redirect, url_for, \
+      render_template, flash, jsonify, Markup
+
 from flask.ext.mail import Mail, Message
 
 ''' ------------------------------- setup and initialize app ------------------------------- '''
 app = Flask(__name__)
-app.config.from_object(__name__)
 
-app.config.update(dict(
-    DEBUG = True,
-    MAIL_SERVER='smtp.gmail.com',
-    MAIL_PORT=465,
-    MAIL_USE_TLS = True,
-    MAIL_USE_SSL= False,
-    MAIL_USERNAME = '',
-    MAIL_PASSWORD = '',
-    DEFAULT_MAIL_SENDER = ("Python Tagging App", ""),
-    SECRET_KEY = 'MPF\xfbz\xfbz\xa7\xcf\x84\x8cd\rg\xd5\x04\xee\xa4\xd6\xb9]\xf8\x0e\xf3'
-))
+app.config.update(**settings.flask_config)
 
 mail = Mail(app)
 
@@ -55,7 +43,6 @@ def login():
         if not error:
             session['logged_in'] = True
             flash('You were logged in')
-            time.sleep(2)
             return redirect(url_for('create'))
     return render_template('login.html', error=error)
 
@@ -168,8 +155,8 @@ def saveLabels():
         return url_for('complete')        
 
     # If we encounter any errors. Show the error message
-    except Exception as e:
-        return jsonify({'error': 'Error ({0})'.format(e)})
+    except Exception as error_detail:
+        return jsonify({'error': 'Error ({0})'.format(error_detail)})
 
 @app.route('/postSessions', methods=['GET', 'POST'])
 def postSessions():
@@ -216,6 +203,7 @@ def postSessions():
                 subject = 'Request to tag data' 
                 msg = Message(recipients=[user_session['user_email']],
                                 body=message,
+                                sender=("Python Tagging App", "chalenge@ihub.co.ke"),
                                 subject=subject)
 
                 conn.send(msg)        
@@ -224,15 +212,16 @@ def postSessions():
             dbase.postUserSessionInfo(sessions_to_create)
 
         #Show message and open page with confirmation that tags have been saved. 
-        message = '''<span><p>Sessions Created!</p></span><br><br><span>Do you want to save more tags? Click <a href="' + tag_sessionid +
+        message = '''<span><p>Sessions Created!</p></span><br><br><span>
+            Do you want to save more tags? Click <a href="' + tag_sessionid +
             '">here</a> to continue tagging</span>'''        
         
         flash(Markup(message))
         return url_for('complete')                
         # return jsonify(sessions_to_create)
 
-    except Exception as e:
-        return jsonify({'error': 'Creating tagging sessions has this error ({0})'.format(e)})
+    except Exception as error_detail:
+        return jsonify({'error': 'Creating tagging sessions has this error ({0})'.format(error_detail)})
 
 @app.route('/complete')
 def complete():
