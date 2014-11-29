@@ -131,4 +131,4 @@ compute <-cbind(features,b)
 
 x <-compute[,c(1:ncol(compute))]
 y <-as.factor(compute$label)
-model <-model = train(x,y,'nb',trControl=trainControl(method='cv',number=10))
+model <-train(x,y,'nb',trControl=trainControl(method='cv',number=10))
