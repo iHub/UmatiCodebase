@@ -7,7 +7,7 @@ The Umati Codebase is suite of analysis code built in R and Python for purposes 
 * Analysis
 * Utilities
 
-![alt tag](https://www.dropbox.com/s/87g6lcce1exdthj/Logo%20proposal.jpg?dl=0)
+![alt tag](http://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=0CAgQjRw&url=http%3A%2F%2Fyourstory.com%2F2014%2F09%2Fumati-hate-speech%2F&ei=Xz2qVIvIIsa3UZ2lgLgL&psig=AFQjCNFNgzxkK0IzYwc0V-Z97hN6zGudSA&ust=1420529375659748)
 
 ##### Project Homepage :
 http://www.ihub.co.ke/umati
