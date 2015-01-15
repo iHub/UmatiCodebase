@@ -10,5 +10,5 @@ packs <- function(pkg){
 }
  
 # Call Function
-packages <- c("twitteR", "streamR", "RSQLite","tm","stringr","klaR","RWeka","RCurl","RJSONIO","stringdist","openNLP","openNLPmodels.en","NLP","e1071")
+packages <- c("rjson","twitteR", "streamR", "RSQLite","tm","stringr","klaR","RWeka","RCurl","RJSONIO","stringdist","openNLP","openNLPmodels.en","NLP","e1071")
 packs (packages)
